@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import SideBar from "@/components/layout/sideBar";
+import PageLayout from "@/components/layout/pageLayout";
 
 const poppins = Poppins({
   weight: ["400", "500", "700"],
@@ -23,10 +23,7 @@ export default function RootLayout({
       <body
         className={`${poppins.className} antialiased w-[100vw] overflow-x-hidden`}
       >
-        <div className="w-[100vw] bg-secondary">
-          <SideBar />
-          <div>{children}</div>
-        </div>
+        <PageLayout children={children} />
       </body>
     </html>
   );

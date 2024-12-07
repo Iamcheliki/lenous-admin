@@ -1,10 +1,17 @@
+"use client";
+
 import { SideBarMenu } from "@/types/layout";
 import data from "../../data/sideBar.json";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SideBar() {
+  const router = useRouter();
+  const handleLogout = () => {
+    router.push("/auth/login");
+  };
   return (
-    <div className="w-[15vw] bg-white p-10 h-[100vh] fixed top-0 left-0">
+    <div className="w-[15vw] bg-white p-10 h-[100vh] flex flex-col flex-shrink-0">
       <h2 className="text-xl font-bold italic mb-10">Lenous Admin Panel</h2>
       <ul>
         {data.sideBar.map((item: SideBarMenu) => (
@@ -15,6 +22,12 @@ export default function SideBar() {
           </li>
         ))}
       </ul>
+      <button
+        className="bg-primary mt-auto h-10 rounded-2xl hover:scale-[1.05] font-bold duration-300"
+        onClick={handleLogout}
+      >
+        Log out
+      </button>
     </div>
   );
 }

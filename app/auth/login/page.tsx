@@ -13,7 +13,7 @@ export default function Login() {
     router.push("/");
   };
   return (
-    <section className="w-[100vw] h-[100vh] bg-secondary  flex justify-center items-center">
+    <section className="w-full h-[100vh] bg-secondary  flex justify-center items-center">
       <div className="w-[30vw] rounded-2xl p-8 bg-primary flex flex-col">
         <h1 className="text-xl font-bold">Login</h1>
         <div className="flex flex-col gap-1 mt-5">
