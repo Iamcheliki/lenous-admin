@@ -1,0 +1,29 @@
+{
+  "sideBar": [
+    {
+      "id": "sideBarMenu1",
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "id": "sideBarMenu2",
+      "title": "Deposits",
+      "url": "/deposits"
+    },
+    {
+      "id": "sideBarMenu3",
+      "title": "Transactions",
+      "url": "/transactions"
+    },
+    {
+      "id": "sideBarMenu4",
+      "title": "Orders",
+      "url": "/orders"
+    },
+    {
+      "id": "sideBarMenu5",
+      "title": "Users",
+      "url": "/users"
+    }
+  ]
+}
