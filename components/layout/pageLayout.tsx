@@ -12,9 +12,9 @@ export default function PageLayout({
 }) {
   const pathName = usePathname();
   return (
-    <div className="w-[100vw] bg-secondary flex">
+    <div className="w-[100vw] h-[100vh] bg-secondary flex">
       {!pathName.includes("auth") && <SideBar />}
-      <div className="flex-grow overflow-y-auto min-h-[100vh] p-10">
+      <div className="flex-grow flex flex-col gap-10 overflow-y-auto min-h-[100vh] p-10 customScroll">
         {!pathName.includes("auth") && <Header />}
         {children}
       </div>

@@ -1,3 +1,5 @@
 export default function Header() {
-  return <div className="h-32 bg-white w-full rounded-2xl p-5"></div>;
+  return (
+    <div className="h-32 bg-white w-full rounded-2xl p-5 flex-shrink-0"></div>
+  );
 }
