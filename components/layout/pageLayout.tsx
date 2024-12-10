@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_BACK_URL } from "@/constant";
-import { setIsLogin } from "@/redux/slices/userSlice";
+import { setIsLogin, setUserUserName } from "@/redux/slices/userSlice";
 
 export default function PageLayout({
   children,
@@ -31,6 +31,7 @@ export default function PageLayout({
         })
         .then((res) => {
           console.log(res);
+          dispatch(setUserUserName(res.data.userName));
           dispatch(setIsLogin(true));
         })
         .catch((err) => {
