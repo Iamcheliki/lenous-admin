@@ -1,16 +1,38 @@
 "use client";
 
+import { BASE_BACK_URL } from "@/constant";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setIsLogin, setUserUserName } from "@/redux/slices/userSlice";
 
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = () => {
     console.log("login");
-    router.push("/");
+    axios
+      .post(`${BASE_BACK_URL}/admin/login`, {
+        userName,
+        password,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.data.token) {
+          Cookies.set("token", res.data.data.token);
+          dispatch(setIsLogin(true));
+          dispatch(setUserUserName(res.data.data.user.userName));
+          router.push("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <section className="w-full h-[100vh] bg-secondary  flex justify-center items-center">

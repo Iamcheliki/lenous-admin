@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import PageLayout from "@/components/layout/pageLayout";
+import ReduxProvider from "@/components/providers/reduxProvider";
 
 const poppins = Poppins({
   weight: ["400", "500", "700"],
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body
         className={`${poppins.className} antialiased w-[100vw] overflow-x-hidden`}
       >
-        <PageLayout children={children} />
+        <ReduxProvider>
+          <PageLayout children={children} />
+        </ReduxProvider>
       </body>
     </html>
   );
