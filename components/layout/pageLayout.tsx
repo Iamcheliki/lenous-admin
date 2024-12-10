@@ -10,6 +10,8 @@ import axios from "axios";
 import { BASE_BACK_URL } from "@/constant";
 import { setIsLogin, setUserUserName } from "@/redux/slices/userSlice";
 import DataProvider from "../providers/dataProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function PageLayout({
   children,
@@ -38,10 +40,11 @@ export default function PageLayout({
         .catch((err) => {
           console.log(err);
           Cookies.remove("token");
-          dispatch(setIsLogin(true));
+          dispatch(setIsLogin(false));
         });
     } else {
       router.push("/auth/login");
+      dispatch(setIsLogin(false));
     }
   }, []);
 
@@ -65,6 +68,7 @@ export default function PageLayout({
           {!pathName.includes("auth") && <Header />}
           {children}
         </div>
+        <ToastContainer position="top-right" autoClose={5000} />
       </div>
     </DataProvider>
   );

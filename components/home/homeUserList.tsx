@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function HomeUserList() {
   const { activeUsers } = useSelector((state: any) => state.client);
-  console.log("home user", activeUsers);
   return (
     <table>
       <thead>

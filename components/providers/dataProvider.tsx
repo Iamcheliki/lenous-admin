@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import { setOpenOrders } from "@/redux/slices/orderSlice";
 import { setActiveUser } from "@/redux/slices/clientSlice";
+import { toast } from "react-toastify";
+import { convertToNumber, formatAddress } from "@/utils";
 
 export default function DataProvider({
   children,
@@ -15,8 +17,9 @@ export default function DataProvider({
   const dispatch = useDispatch();
   const [connected, setConnected] = useState<boolean>(false);
   const socketRef = useRef<any>(null);
+  const { isLogin } = useSelector((state: any) => state.user);
   useEffect(() => {
-    if (!socketRef.current) {
+    if (!socketRef.current && isLogin) {
       socketRef.current = io("http://localhost:3000");
       socketRef.current.on("connect", () => {
         console.log("connected to socket");
@@ -29,11 +32,18 @@ export default function DataProvider({
         dispatch(setOpenOrders([...data.positions]));
       });
       socketRef.current.on("active_users", (data: any) => {
-        console.log(data);
         dispatch(setActiveUser([...data]));
       });
+      socketRef.current.on("deposit", (data: any) => {
+        console.log("deposit", data);
+        toast.success(
+          `New Deposit form ${formatAddress(
+            data.address
+          )} with the amount of ${convertToNumber(data.amount)}`
+        );
+      });
     }
-  }, []);
+  }, [isLogin]);
 
   useEffect(() => {
     if (connected) {
