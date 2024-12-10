@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { BASE_BACK_URL } from "@/constant";
 import { setIsLogin, setUserUserName } from "@/redux/slices/userSlice";
+import DataProvider from "../providers/dataProvider";
 
 export default function PageLayout({
   children,
@@ -57,12 +58,14 @@ export default function PageLayout({
     }
   }, [pathName]);
   return (
-    <div className="w-[100vw] h-[100vh] bg-secondary flex">
-      {!pathName.includes("auth") && <SideBar />}
-      <div className="flex-grow flex flex-col gap-10 overflow-y-auto min-h-[100vh] p-10 customScroll">
-        {!pathName.includes("auth") && <Header />}
-        {children}
+    <DataProvider>
+      <div className="w-[100vw] h-[100vh] bg-secondary flex">
+        {!pathName.includes("auth") && <SideBar />}
+        <div className="flex-grow flex flex-col gap-10 overflow-y-auto min-h-[100vh] p-10 customScroll">
+          {!pathName.includes("auth") && <Header />}
+          {children}
+        </div>
       </div>
-    </div>
+    </DataProvider>
   );
 }

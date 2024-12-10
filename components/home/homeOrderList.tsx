@@ -1,4 +1,12 @@
+"use client";
+
+import { convertToNumber } from "@/utils";
+import { useSelector } from "react-redux";
+
 export default function HomeOrderList() {
+  const { openOrders } = useSelector((state: any) => state.order);
+
+  console.log("open orders", openOrders);
   return (
     <table>
       <thead>
@@ -14,36 +22,32 @@ export default function HomeOrderList() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th className="text-md text-left py-2">1</th>
-          <th className="text-md text-left py-2">Bictoin</th>
-          <th className="text-md text-left py-2">Limit</th>
-          <th className="text-md text-left py-2">Buy</th>
-          <th className="text-md text-left py-2">0.001</th>
-          <th className="text-md text-left py-2">$97980</th>
-          <th className="text-md text-left py-2">&97.9</th>
-          <th className="text-md text-left py-2">3%</th>
-        </tr>
-        <tr>
-          <th className="text-md text-left py-2">2</th>
-          <th className="text-md text-left py-2">Bictoin</th>
-          <th className="text-md text-left py-2">Limit</th>
-          <th className="text-md text-left py-2">Buy</th>
-          <th className="text-md text-left py-2">0.001</th>
-          <th className="text-md text-left py-2">$97980</th>
-          <th className="text-md text-left py-2">&97.9</th>
-          <th className="text-md text-left py-2">3%</th>
-        </tr>
-        <tr>
-          <th className="text-md text-left py-2">3</th>
-          <th className="text-md text-left py-2">Bictoin</th>
-          <th className="text-md text-left py-2">Limit</th>
-          <th className="text-md text-left py-2">Buy</th>
-          <th className="text-md text-left py-2">0.001</th>
-          <th className="text-md text-left py-2">$97980</th>
-          <th className="text-md text-left py-2">&97.9</th>
-          <th className="text-md text-left py-2">3%</th>
-        </tr>
+        {openOrders.map((order: any, index: number) => (
+          <tr key={order.id}>
+            <th className="text-md text-left py-2">{index}</th>
+            <th className="text-md text-left py-2">Bictoin</th>
+            <th className="text-md text-left py-2">{order.type}</th>
+            <th className="text-md text-left py-2">---</th>
+            <th className="text-md text-left py-2">
+              {convertToNumber(order.amount).toFixed(4)}
+            </th>
+            <th className="text-md text-left py-2">
+              {convertToNumber(order.price).toFixed(4)}
+            </th>
+            <th className="text-md text-left py-2">
+              {(
+                convertToNumber(order.amount) * convertToNumber(order.price)
+              ).toFixed(4)}
+            </th>
+            <th
+              className={`text-md text-left py-2 ${
+                order.unrealizedPnl > 0 ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {order.unrealizedPnl}
+            </th>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
