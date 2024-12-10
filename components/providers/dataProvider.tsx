@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import { setOpenOrders } from "@/redux/slices/orderSlice";
+import { setActiveUser } from "@/redux/slices/clientSlice";
 
 export default function DataProvider({
   children,
@@ -26,6 +27,10 @@ export default function DataProvider({
       });
       socketRef.current.on("live_positions", (data: any) => {
         dispatch(setOpenOrders([...data.positions]));
+      });
+      socketRef.current.on("active_users", (data: any) => {
+        console.log(data);
+        dispatch(setActiveUser([...data]));
       });
     }
   }, []);

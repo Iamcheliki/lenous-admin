@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 export default function HomeOrderList() {
   const { openOrders } = useSelector((state: any) => state.order);
 
-  console.log("open orders", openOrders);
   return (
     <table>
       <thead>
