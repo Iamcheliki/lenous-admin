@@ -42,6 +42,24 @@ export default function DataProvider({
           )} with the amount of ${convertToNumber(data.amount)}`
         );
       });
+      socketRef.current.on("orderPlaced", (data: any) => {
+        console.log("Order message received from new socket", data);
+        toast.success(
+          `Trader ${formatAddress(data.address)} placed a ${
+            data.type
+          } with the amount of ${convertToNumber(
+            data.amount
+          )} and the price $${convertToNumber(data.price)}`
+        );
+      });
+      socketRef.current.on("orderMatched", (data: any) => {
+        console.log("Match message received from new socket", data);
+        toast.success(
+          `Order ${formatAddress(data.sellOrderId)} matched with order ${
+            data.buyOrderId
+          } with the price $${convertToNumber(data.price)}`
+        );
+      });
     }
   }, [isLogin]);
 
