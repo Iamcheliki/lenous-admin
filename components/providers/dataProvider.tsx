@@ -60,6 +60,16 @@ export default function DataProvider({
           } with the price $${convertToNumber(data.price)}`
         );
       });
+      socketRef.current.on("orderFilledByLp", (data: any) => {
+        console.log("Filled message received form new socket", data);
+        toast.success(
+          `ORder ${formatAddress(
+            data.orderId
+          )} filled by LP in the amount of ${convertToNumber(
+            data.amount
+          )} and the price of${convertToNumber(data.price)}`
+        );
+      });
     }
   }, [isLogin]);
 
