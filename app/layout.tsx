@@ -25,7 +25,7 @@ export default function RootLayout({
         className={`${poppins.className} antialiased w-[100vw] overflow-x-hidden`}
       >
         <ReduxProvider>
-          <PageLayout children={children} />
+          <PageLayout>{children}</PageLayout>
         </ReduxProvider>
       </body>
     </html>
