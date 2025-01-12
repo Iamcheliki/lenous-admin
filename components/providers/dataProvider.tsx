@@ -29,9 +29,11 @@ export default function DataProvider({
         setConnected(false);
       });
       socketRef.current.on("live_positions", (data: any) => {
+        console.log("live positions", data);
         dispatch(setOpenOrders([...data.positions]));
       });
       socketRef.current.on("active_users", (data: any) => {
+        console.log("active users", data);
         dispatch(setActiveUser([...data]));
       });
       socketRef.current.on("deposit", (data: any) => {

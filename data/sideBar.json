@@ -1,27 +1,32 @@
 {
   "sideBar": [
     {
-      "id": "sideBarMenu1",
+      "id": "sideBarMenu-home",
       "title": "Home",
       "url": "/"
     },
     {
-      "id": "sideBarMenu2",
+      "id": "sideBarMenu-lp",
+      "title": "Lp Manager",
+      "url": "/lp-manager"
+    },
+    {
+      "id": "sideBarMenu-deposit",
       "title": "Deposits",
       "url": "/deposits"
     },
     {
-      "id": "sideBarMenu3",
+      "id": "sideBarMenu-transactions",
       "title": "Transactions",
       "url": "/transactions"
     },
     {
-      "id": "sideBarMenu4",
+      "id": "sideBarMenu-orders",
       "title": "Orders",
       "url": "/orders"
     },
     {
-      "id": "sideBarMenu5",
+      "id": "sideBarMenu-users",
       "title": "Users",
       "url": "/users"
     }
