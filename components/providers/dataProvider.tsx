@@ -63,7 +63,7 @@ export default function DataProvider({
       socketRef.current.on("orderFilledByLp", (data: any) => {
         console.log("Filled message received form new socket", data);
         toast.success(
-          `ORder ${formatAddress(
+          `Order ${formatAddress(
             data.orderId
           )} filled by LP in the amount of ${convertToNumber(
             data.amount
