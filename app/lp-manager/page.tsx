@@ -37,7 +37,15 @@ export default function LpManager() {
   return (
     <section>
       <div className="w-full p-5 bg-white rounded-2xl">
-        <h1 className="text-lg font-bold mb-10">Lp Manager</h1>
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-lg font-bold">Lp Manager</h1>
+          <button
+            onClick={handleNewLp}
+            className="bg-primary px-4 h-[40px] text-white rounded-lg"
+          >
+            Set new Liquidity Pool
+          </button>
+        </div>
         {list.length === 0 ? (
           <div className="flex flex-col items-center gap-4">
             <p className="text-lg font-medium">No Liquidity pool yet!</p>

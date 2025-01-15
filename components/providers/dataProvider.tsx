@@ -8,6 +8,7 @@ import { setOpenOrders } from "@/redux/slices/orderSlice";
 import { setActiveUser } from "@/redux/slices/clientSlice";
 import { toast } from "react-toastify";
 import { convertToNumber, formatAddress } from "@/utils";
+import { LogType, setLogList } from "@/redux/slices/eventSlice";
 
 export default function DataProvider({
   children,
@@ -43,6 +44,9 @@ export default function DataProvider({
             data.address
           )} with the amount of ${convertToNumber(data.amount)}`
         );
+        dispatch(
+          setLogList({ type: LogType.DEPOSIT, data: data, date: new Date() })
+        );
       });
       socketRef.current.on("orderPlaced", (data: any) => {
         console.log("Order message received from new socket", data);
@@ -53,6 +57,13 @@ export default function DataProvider({
             data.amount
           )} and the price $${convertToNumber(data.price)}`
         );
+        dispatch(
+          setLogList({
+            type: LogType.ORDER_PLACE,
+            data: data,
+            date: new Date(),
+          })
+        );
       });
       socketRef.current.on("orderMatched", (data: any) => {
         console.log("Match message received from new socket", data);
@@ -60,6 +71,13 @@ export default function DataProvider({
           `Order ${formatAddress(data.sellOrderId)} matched with order ${
             data.buyOrderId
           } with the price $${convertToNumber(data.price)}`
+        );
+        dispatch(
+          setLogList({
+            type: LogType.ORDER_MATCH,
+            data: data,
+            date: new Date(),
+          })
         );
       });
       socketRef.current.on("orderFilledByLp", (data: any) => {
@@ -70,6 +88,49 @@ export default function DataProvider({
           )} filled by LP in the amount of ${convertToNumber(
             data.amount
           )} and the price of${convertToNumber(data.price)}`
+        );
+        dispatch(
+          setLogList({
+            type: LogType.ORDER_FILL_LP,
+            data: data,
+            date: new Date(),
+          })
+        );
+      });
+
+      socketRef.current.on("orderLiquided", (data: any) => {
+        console.log("Liquid message received form socket", data);
+        toast.warning(`Order ${data.orderId} Liquided`);
+        dispatch(
+          setLogList({
+            type: LogType.ORDER_LIQUID,
+            data: data,
+            date: new Date(),
+          })
+        );
+      });
+
+      socketRef.current.on("orderSlTpClose", (data: any) => {
+        console.log("Close message received form socket", data);
+        toast.warning(`Order ${data.orderId} Closed with Sl/Tp hit`);
+        dispatch(
+          setLogList({
+            type: LogType.ORDER_SL_TP,
+            data: data,
+            date: new Date(),
+          })
+        );
+      });
+
+      socketRef.current.on("lpDeposit", (data: any) => {
+        console.log("lp deposit", data);
+        toast.success(
+          `New Deposit form ${formatAddress(
+            data.address
+          )} with the amount of ${convertToNumber(data.amount)} into LP`
+        );
+        dispatch(
+          setLogList({ type: LogType.LP_DEPOST, data: data, date: new Date() })
         );
       });
     }
