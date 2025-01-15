@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { convertToNumber, formatAddress } from "@/utils";
 import { LogType, setLogList } from "@/redux/slices/eventSlice";
 import { setLpData } from "@/redux/slices/lpSlice";
+import { BASE_SOCKET_URL } from "@/constant";
 
 export default function DataProvider({
   children,
@@ -23,7 +24,7 @@ export default function DataProvider({
   useEffect(() => {
     if (!socketRef.current && isLogin) {
       console.log("hello to socket");
-      socketRef.current = io(process.env.NEXT_PUBLIC_SOCKET_URL);
+      socketRef.current = io(BASE_SOCKET_URL);
       socketRef.current.on("connect", () => {
         console.log("connected to socket");
         setConnected(true);
