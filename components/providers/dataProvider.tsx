@@ -133,7 +133,7 @@ export default function DataProvider({
         toast.success(
           `New Deposit form ${formatAddress(
             data.address
-          )} with the amount of ${convertToNumber(data.amount)} into LP`
+          )} with the amount of ${convertToNumber(data.usdcAmount)} into LP`
         );
         dispatch(
           setLogList({
@@ -145,7 +145,7 @@ export default function DataProvider({
       });
 
       socketRef.current.on("lpStats", (data: any) => {
-        // console.log("lp_stats", data);
+        console.log("lp_stats", data);
         dispatch(setLpData(data));
       });
     }

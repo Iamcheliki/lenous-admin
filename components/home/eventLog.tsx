@@ -17,11 +17,11 @@ export default function EventLog() {
           <h3 className="text-md font-medium">{item.type}</h3>
           <p>
             {item.type === LogType.DEPOSIT
-              ? `Deposit ${+item.data.amount / 10 ** 18}`
+              ? `Deposit $${+item.data.amount / 10 ** 18}`
               : item.type === LogType.WITHDRAW
-              ? `Withdraw ${+item.data.amount / 10 ** 18}`
+              ? `Withdraw $${+item.data.amount / 10 ** 18}`
               : item.type === LogType.LP_DEPOST
-              ? `Deposit ${+item.data.amount / 10 ** 18} into lp`
+              ? `Deposit $${+item.data.usdcAmount / 10 ** 18} into lp`
               : item.type === LogType.ORDER_LIQUID
               ? `Order ${item.data.orderId} liquided`
               : item.type === LogType.ORDER_MATCH
