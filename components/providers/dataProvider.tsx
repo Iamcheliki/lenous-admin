@@ -23,7 +23,7 @@ export default function DataProvider({
   useEffect(() => {
     if (!socketRef.current && isLogin) {
       console.log("hello to socket");
-      socketRef.current = io("http://localhost:3000");
+      socketRef.current = io(process.env.NEXT_PUBLIC_SOCKET_URL);
       socketRef.current.on("connect", () => {
         console.log("connected to socket");
         setConnected(true);
