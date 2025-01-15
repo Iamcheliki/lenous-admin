@@ -24,7 +24,7 @@ const eventSlice = createSlice({
   initialState,
   reducers: {
     setLogList: (state, action) => {
-      state.logs = [...state.logs, action.payload];
+      state.logs = [action.payload, ...state.logs];
     },
   },
 });
