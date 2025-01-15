@@ -9,6 +9,7 @@ import { setActiveUser } from "@/redux/slices/clientSlice";
 import { toast } from "react-toastify";
 import { convertToNumber, formatAddress } from "@/utils";
 import { LogType, setLogList } from "@/redux/slices/eventSlice";
+import { setLpData } from "@/redux/slices/lpSlice";
 
 export default function DataProvider({
   children,
@@ -21,6 +22,7 @@ export default function DataProvider({
   const { isLogin } = useSelector((state: any) => state.user);
   useEffect(() => {
     if (!socketRef.current && isLogin) {
+      console.log("hello to socket");
       socketRef.current = io("http://localhost:3000");
       socketRef.current.on("connect", () => {
         console.log("connected to socket");
@@ -30,11 +32,11 @@ export default function DataProvider({
         setConnected(false);
       });
       socketRef.current.on("live_positions", (data: any) => {
-        console.log("live positions", data);
+        // console.log("live positions", data);
         dispatch(setOpenOrders([...data.positions]));
       });
       socketRef.current.on("active_users", (data: any) => {
-        console.log("active users", data);
+        // console.log("active users", data);
         dispatch(setActiveUser([...data]));
       });
       socketRef.current.on("deposit", (data: any) => {
@@ -45,13 +47,17 @@ export default function DataProvider({
           )} with the amount of ${convertToNumber(data.amount)}`
         );
         dispatch(
-          setLogList({ type: LogType.DEPOSIT, data: data, date: new Date() })
+          setLogList({
+            type: LogType.DEPOSIT,
+            data: data,
+            date: new Date().toLocaleTimeString(),
+          })
         );
       });
       socketRef.current.on("orderPlaced", (data: any) => {
         console.log("Order message received from new socket", data);
         toast.success(
-          `Trader ${formatAddress(data.address)} placed a ${
+          `Trader ${formatAddress(data.trader)} placed a ${
             data.type
           } with the amount of ${convertToNumber(
             data.amount
@@ -61,7 +67,7 @@ export default function DataProvider({
           setLogList({
             type: LogType.ORDER_PLACE,
             data: data,
-            date: new Date(),
+            date: new Date().toLocaleTimeString(),
           })
         );
       });
@@ -76,7 +82,7 @@ export default function DataProvider({
           setLogList({
             type: LogType.ORDER_MATCH,
             data: data,
-            date: new Date(),
+            date: new Date().toLocaleTimeString(),
           })
         );
       });
@@ -93,7 +99,7 @@ export default function DataProvider({
           setLogList({
             type: LogType.ORDER_FILL_LP,
             data: data,
-            date: new Date(),
+            date: new Date().toLocaleTimeString(),
           })
         );
       });
@@ -105,7 +111,7 @@ export default function DataProvider({
           setLogList({
             type: LogType.ORDER_LIQUID,
             data: data,
-            date: new Date(),
+            date: new Date().toLocaleTimeString(),
           })
         );
       });
@@ -117,7 +123,7 @@ export default function DataProvider({
           setLogList({
             type: LogType.ORDER_SL_TP,
             data: data,
-            date: new Date(),
+            date: new Date().toLocaleTimeString(),
           })
         );
       });
@@ -130,8 +136,17 @@ export default function DataProvider({
           )} with the amount of ${convertToNumber(data.amount)} into LP`
         );
         dispatch(
-          setLogList({ type: LogType.LP_DEPOST, data: data, date: new Date() })
+          setLogList({
+            type: LogType.LP_DEPOST,
+            data: data,
+            date: new Date().toLocaleTimeString(),
+          })
         );
+      });
+
+      socketRef.current.on("lpStats", (data: any) => {
+        // console.log("lp_stats", data);
+        dispatch(setLpData(data));
       });
     }
   }, [isLogin]);

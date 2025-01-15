@@ -5,8 +5,8 @@ const initialState = {
   activeUsers: [] as any[],
 };
 
-const aclientUser = createSlice({
-  name: "user",
+const clientSlice = createSlice({
+  name: "client",
   initialState,
   reducers: {
     setUserList: (state, action) => {
@@ -18,5 +18,5 @@ const aclientUser = createSlice({
   },
 });
 
-export const { setUserList, setActiveUser } = aclientUser.actions;
-export default aclientUser.reducer;
+export const { setUserList, setActiveUser } = clientSlice.actions;
+export default clientSlice.reducer;
