@@ -4,10 +4,16 @@ import { SideBarMenu } from "@/types/layout";
 import data from "../../data/sideBar.json";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setIsLogin } from "@/redux/slices/userSlice";
 
 export default function SideBar() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const handleLogout = () => {
+    Cookies.remove("token");
+    dispatch(setIsLogin(false));
     router.push("/auth/login");
   };
   return (
