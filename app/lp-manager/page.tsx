@@ -2,9 +2,11 @@
 
 import { createNewLp, getLpList } from "@/serverFunctions/lpRequests";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function LpManager() {
+  const { lpData } = useSelector((state: any) => state.lp);
   const [list, setList] = useState<any[]>([]);
   useEffect(() => {
     fetchLps();
@@ -73,10 +75,18 @@ export default function LpManager() {
                 <tr key={item._id} className="text-md font-normal">
                   <td>{item.id}</td>
                   <td>Liquidity pool No {item.id}</td>
-                  <td className="text-center">{item.totalLiqudidty}</td>
-                  <td className="text-center">{item.totalToken}</td>
-                  <td className="text-center">{item.totalRealizedPnl}</td>
-                  <td className="text-center">{item.totalUnrealizedPnl}</td>
+                  <td className="text-center">
+                    $ {lpData.totalLiquidity.toFixed(2)}
+                  </td>
+                  <td className="text-center">
+                    ${lpData.totalToken.toFixed(2)}
+                  </td>
+                  <td className="text-center">
+                    ${+lpData.totalUnrealizedPnl.toFixed(2)}
+                  </td>
+                  <td className="text-center">
+                    ${+lpData.totalRealizedPnl.toFixed(2)}
+                  </td>
                   <td className="text-center">
                     {new Date(item.creationDate).toLocaleDateString()}
                   </td>
