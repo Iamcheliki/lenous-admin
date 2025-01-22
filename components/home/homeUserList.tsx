@@ -1,6 +1,6 @@
 "use client";
 
-import { convertToNumber, formatAddress } from "@/utils";
+import { formatAddress } from "@/utils";
 import { useSelector } from "react-redux";
 
 export default function HomeUserList() {
@@ -31,14 +31,14 @@ export default function HomeUserList() {
               $ {user.totalPnl.toFixed(4)}
             </th>
             <th className="text-md text-left py-2">
-              $ {convertToNumber(user.totalBalance).toFixed(4)}
+              $ {user.totalBalance.toFixed(4)}
             </th>
             <th
               className={`text-md text-left py-2 ${
                 user.freeMargin > 0 ? "text-green-600" : "text-red-600"
               }`}
             >
-              $ {convertToNumber(user.freeMargin).toFixed(4)}
+              $ {user.freeMargin.toFixed(4)}
             </th>
           </tr>
         ))}

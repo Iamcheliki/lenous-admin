@@ -1,7 +1,6 @@
 "use client";
 
 import { createNewLp, getLpList } from "@/serverFunctions/lpRequests";
-import { convertToNumber } from "@/utils";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -74,9 +73,7 @@ export default function LpManager() {
                 <tr key={item._id} className="text-md font-normal">
                   <td>{item.id}</td>
                   <td>Liquidity pool No {item.id}</td>
-                  <td className="text-center">
-                    {convertToNumber(item.totalLiqudidty)}
-                  </td>
+                  <td className="text-center">{item.totalLiqudidty}</td>
                   <td className="text-center">{item.totalToken}</td>
                   <td className="text-center">{item.totalRealizedPnl}</td>
                   <td className="text-center">{item.totalUnrealizedPnl}</td>

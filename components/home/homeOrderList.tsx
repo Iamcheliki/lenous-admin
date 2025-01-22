@@ -1,6 +1,5 @@
 "use client";
 
-import { convertToNumber } from "@/utils";
 import { useSelector } from "react-redux";
 
 export default function HomeOrderList() {
@@ -28,15 +27,11 @@ export default function HomeOrderList() {
             <th className="text-md text-left py-2">{order.type}</th>
             <th className="text-md text-left py-2">---</th>
             <th className="text-md text-left py-2">
-              {convertToNumber(order.amount).toFixed(4)}
+              {order.amount.toFixed(4)}
             </th>
+            <th className="text-md text-left py-2">{order.price.toFixed(4)}</th>
             <th className="text-md text-left py-2">
-              {convertToNumber(order.price).toFixed(4)}
-            </th>
-            <th className="text-md text-left py-2">
-              {(
-                convertToNumber(order.amount) * convertToNumber(order.price)
-              ).toFixed(4)}
+              {(order.amount * order.price).toFixed(4)}
             </th>
             <th
               className={`text-md text-left py-2 ${

@@ -8,3 +8,7 @@ export const formatAddress = (address: string) => {
     address.substring(0, 6) + "..." + address.substring(address.length - 4)
   );
 };
+
+export const formatId = (id: string) => {
+  return id.substring(0, 6) + " ... " + id.substring(id.length - 6);
+};

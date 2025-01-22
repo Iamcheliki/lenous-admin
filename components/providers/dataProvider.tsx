@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import { setOpenOrders } from "@/redux/slices/orderSlice";
 import { setActiveUser } from "@/redux/slices/clientSlice";
 import { toast } from "react-toastify";
-import { convertToNumber, formatAddress } from "@/utils";
+import { formatAddress } from "@/utils";
 import { LogType, setLogList } from "@/redux/slices/eventSlice";
 import { setLpData } from "@/redux/slices/lpSlice";
 import { BASE_SOCKET_URL } from "@/constant";
@@ -43,9 +43,9 @@ export default function DataProvider({
       socketRef.current.on("deposit", (data: any) => {
         console.log("deposit", data);
         toast.success(
-          `New Deposit form ${formatAddress(
-            data.address
-          )} with the amount of ${convertToNumber(data.amount)}`
+          `New Deposit form ${formatAddress(data.address)} with the amount of ${
+            data.amount
+          }`
         );
         dispatch(
           setLogList({
@@ -60,9 +60,7 @@ export default function DataProvider({
         toast.success(
           `Trader ${formatAddress(data.trader)} placed a ${
             data.type
-          } with the amount of ${convertToNumber(
-            data.amount
-          )} and the price $${convertToNumber(data.price)}`
+          } with the amount of ${data.amount} and the price $${data.price}`
         );
         dispatch(
           setLogList({
@@ -77,7 +75,7 @@ export default function DataProvider({
         toast.success(
           `Order ${formatAddress(data.sellOrderId)} matched with order ${
             data.buyOrderId
-          } with the price $${convertToNumber(data.price)}`
+          } with the price $${data.price}`
         );
         dispatch(
           setLogList({
@@ -90,11 +88,9 @@ export default function DataProvider({
       socketRef.current.on("orderFilledByLp", (data: any) => {
         console.log("Filled message received form new socket", data);
         toast.success(
-          `Order ${formatAddress(
-            data.orderId
-          )} filled by LP in the amount of ${convertToNumber(
+          `Order ${formatAddress(data.orderId)} filled by LP in the amount of ${
             data.amount
-          )} and the price of${convertToNumber(data.price)}`
+          } and the price of${data.price}`
         );
         dispatch(
           setLogList({
@@ -132,9 +128,9 @@ export default function DataProvider({
       socketRef.current.on("lpDeposit", (data: any) => {
         console.log("lp deposit", data);
         toast.success(
-          `New Deposit form ${formatAddress(
-            data.address
-          )} with the amount of ${convertToNumber(data.usdcAmount)} into LP`
+          `New Deposit form ${formatAddress(data.address)} with the amount of ${
+            data.usdcAmount
+          } into LP`
         );
         dispatch(
           setLogList({
