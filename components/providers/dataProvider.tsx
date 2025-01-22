@@ -11,6 +11,7 @@ import { formatAddress } from "@/utils";
 import { LogType, setLogList } from "@/redux/slices/eventSlice";
 import { setLpData } from "@/redux/slices/lpSlice";
 import { BASE_SOCKET_URL } from "@/constant";
+import { setDepositList } from "@/redux/slices/depositSlice";
 
 export default function DataProvider({
   children,
@@ -54,6 +55,11 @@ export default function DataProvider({
             date: new Date().toLocaleTimeString(),
           })
         );
+      });
+
+      socketRef.current.on("depositList", (data: any) => {
+        console.log("depositList", data);
+        dispatch(setDepositList(data.deposits));
       });
       socketRef.current.on("orderPlaced", (data: any) => {
         console.log("Order message received from new socket", data);

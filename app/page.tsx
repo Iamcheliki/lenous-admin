@@ -15,23 +15,25 @@ export default function Home() {
           <EventLog />
         </div>
         <div className="w-full flex items-center gap-5">
-          <div className="flex flex-col flex-grow p-5 flex-shrink-0 bg-white rounded-2xl min-h-[40vh]">
+          <div className="flex flex-col flex-grow p-5 flex-shrink-0 bg-white rounded-2xl h-[40vh]">
             <h3 className="text-lg font-bold mb-5">Last Orders</h3>
             <HomeOrderList />
           </div>
-          <div className="flex flex-col p-5 w-[30%] flex-shrink-0 bg-white rounded-2xl min-h-[40vh]">
+          <div className="flex flex-col p-5 w-[30%] flex-shrink-0 bg-white rounded-2xl h-[40vh]">
             <h3 className="text-lg font-bold mb-5">LP Stats</h3>
             <HomeLPStats />
           </div>
         </div>
-        <div className="w-full flex items-center gap-5">
-          <div className="flex flex-col p-5 flex-grow flex-shrink-0 bg-white rounded-2xl min-h-[40vh]">
+        <div className="w-full flex gap-5">
+          <div className="flex flex-col p-5 flex-grow flex-shrink-0 bg-white rounded-2xl h-[40vh]">
             <h3 className="text-lg font-bold mb-5">Users</h3>
             <HomeUserList />
           </div>
-          <div className="flex flex-col p-5 w-[30%] flex-shrink-0 bg-white rounded-2xl min-h-[40vh]">
+          <div className="flex flex-col p-5 w-[30%] flex-shrink-0 bg-white rounded-2xl h-[40vh]">
             <h3 className="text-lg font-bold mb-5">Depsoits and Withdraws</h3>
-            <HomeDepositStats />
+            <div className="overflow-y-auto customScroll w-full">
+              <HomeDepositStats />
+            </div>
           </div>
         </div>
       </div>
